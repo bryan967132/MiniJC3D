@@ -1,5 +1,5 @@
 # MiniJ
-## Intérprete de Código: JFlex y CUP
+## Generador de Código de 3 Direcciones: JFlex y CUP
 Versión minimizada de c++.  
 Implementa patrón de diseño interpreter.
 
@@ -265,7 +265,3 @@ public class GParser {
     }
 }
 ```
-
-## Versión de Intérprete con JavaCC
-Usuario: [bryan967132](https://github.com/bryan967132)  
-Repositorio: [MiniJCompiler](https://github.com/bryan967132/MiniJCompiler)
