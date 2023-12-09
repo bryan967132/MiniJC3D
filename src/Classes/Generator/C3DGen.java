@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import Classes.Env.Env;
 public class C3DGen {
     private int labelCount = 0;
     private int temporalCount = 0;
