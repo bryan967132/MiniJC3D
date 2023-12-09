@@ -79,64 +79,11 @@ public class C3DGen {
         labelCount ++;
         return lbl;
     }
-    public void deleteLbl() {
-        labelCount --;
-    }
     public String validLabel(String lbl) {
         if(lbl == null) {
             return newLbl();
         }
         return lbl;
-    }
-    public void leaveAllTmps() {
-        temporalsSaved.clear();
-    }
-    public void leaveTmp(String tmp) {
-        if(temporalsSaved.containsKey(tmp)) {
-            temporalsSaved.remove(tmp);
-        }
-    }
-    public ArrayList<String> copyKeys(Map<String, String> map) {
-        ArrayList<String> keys = new ArrayList<>();
-        for(String key : map.keySet()) {
-            keys.add(key);
-        }
-        return keys;
-    }
-    public int saveTmps(Env env) {
-        int size = 0;
-        if(temporalsSaved.size() > 0) {
-            String tmp = newTmp();
-            leaveTmp(tmp);
-            addExpression(tmp, "P", "+", String.valueOf(env.size));
-            for(String key : copyKeys(temporalsSaved)) {
-                size ++;
-                addSetStackB(tmp, key);
-                if(size != temporalsSaved.size()) {
-                    addExpression(tmp, tmp, "+", "1");
-                }
-            }
-        }
-        int ptr = env.size;
-        env.size += size;
-        return ptr;
-    }
-    public void recoverTmps(Env env, int index) {
-        if(temporalsSaved.size() > 0) {
-            System.out.println("ENTRA A RECOVER");
-            String tmp = newTmp();
-            leaveTmp(tmp);
-            int size = 0;
-            addExpression(tmp, "P", "+", String.valueOf(index));
-            for(String key : copyKeys(temporalsSaved)) {
-                size ++;
-                addGetStack(key, tmp);
-                if(size != temporalsSaved.size()) {
-                    addExpression(tmp, tmp, "+", "1");
-                }
-            }
-            env.size = index;
-        }
     }
     private void addInstruction(Instruction instruction) {
         if(keys[0]) {
@@ -173,8 +120,6 @@ public class C3DGen {
         addInstruction(new Label(lbl));
     }
     public void addIf(String left, String operator, String right, String lbl) {
-        leaveTmp(left);
-        leaveTmp(right);
         addInstruction(new If(left, operator, right, lbl));
     }
     public void addGoto(String lbl) {
@@ -186,19 +131,12 @@ public class C3DGen {
         addInstruction(new Asign(target, value));
     }
     public void addExpression(String target, String left, String operator, String right) {
-        leaveTmp(left);
-        leaveTmp(right);
         addInstruction(new Expression(target, left, operator, right));
     }
     public void addComment(String comment) {
         addInstruction(new Generic("\t/* " + comment + " */"));
     }
     public void addPrintf(String type, String value) {
-        if(value.matches("[t][0-9]+")) {
-            leaveTmp(value);
-        } else if(value.matches("\\((int|char|float)\\) [t][0-9]+")) {
-            leaveTmp(value.split(" ")[1]);
-        }
         addInstruction(new Printf(type, value));
     }
     public void addPrint(String value) {
@@ -217,25 +155,18 @@ public class C3DGen {
         addInstruction(new CallFunction(id));
     }
     public void addSetHeap(String index, String value) {
-        leaveTmp(index);
-        leaveTmp(value);
         addInstruction(new SetHeap(index, value));
     }
     public void addGetHeap(String target, String index) {
-        leaveTmp(index);
         addInstruction(new GetHeap(target, index));
     }
     public void addSetStack(String index, String value) {
-        leaveTmp(index);
         addInstruction(new SetStack(index, value));
     }
     public void addSetStackB(String index, String value) {
-        leaveTmp(index);
-        leaveTmp(value);
         addInstruction(new SetStack(index, value));
     }
     public void addGetStack(String target, String index) {
-        leaveTmp(index);
         addInstruction(new GetStack(target, index));
     }
     public void nextHeap() {
@@ -284,9 +215,6 @@ public class C3DGen {
             addLabel(lbl4);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
             restoreSetting();
             thereIsPow = true;
         }
@@ -316,9 +244,6 @@ public class C3DGen {
             addSetStack("P", tmp2);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
             restoreSetting();
             thereIsMod = true;
         }
@@ -347,9 +272,6 @@ public class C3DGen {
             addLabel(lbl2);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
             restoreSetting();
             thereIsPrintString = true;
         }
@@ -396,10 +318,6 @@ public class C3DGen {
             addSetStack("P", tmp1);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
-            leaveTmp(tmp4);
             restoreSetting();
             thereIsConcatString = true;
         }
@@ -463,13 +381,6 @@ public class C3DGen {
             addSetStack("P", tmp1);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
-            leaveTmp(tmp4);
-            leaveTmp(tmp5);
-            leaveTmp(tmp6);
-            leaveTmp(tmp7);
             restoreSetting();
             thereIsIntToString = true;
         }
@@ -560,13 +471,6 @@ public class C3DGen {
             addSetStack("P", tmp1);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
-            leaveTmp(tmp4);
-            leaveTmp(tmp5);
-            leaveTmp(tmp6);
-            leaveTmp(tmp7);
             restoreSetting();
             thereIsDoubleToString = true;
         }
@@ -595,10 +499,6 @@ public class C3DGen {
             addSetStack("P", tmp4);
             addEnd();
             //
-            leaveTmp(tmp1);
-            leaveTmp(tmp2);
-            leaveTmp(tmp3);
-            leaveTmp(tmp4);
             restoreSetting();
             thereIsCharToString = true;
         }
