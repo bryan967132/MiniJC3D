@@ -154,9 +154,19 @@ public class Arithmetic extends Expression {
         type = !(t1 == 5 || t2 == 5) ? Operations.div[t1][t2] : Type.NULL;
         if(type != Type.NULL) {
             if(type == Type.INT || type == Type.DOUBLE) {
-                String tmp = c3dgen.newTmp();
-                c3dgen.addExpression(tmp, value1.strValue, "/", value2.strValue);
-                return new ReturnValue(true, tmp, type);
+                String tmp1 = c3dgen.newTmp();
+                String tmp2 = c3dgen.newTmp();
+                String lbl1 = c3dgen.newLbl();
+                String lbl2 = c3dgen.newLbl();
+                c3dgen.addAsign(tmp1, value2.strValue);
+                c3dgen.addIf(tmp1, "!=", "0", lbl1);
+                c3dgen.addPrint("MathError\n");
+                c3dgen.addAsign(tmp2, "0");
+                c3dgen.addGoto(lbl2);
+                c3dgen.addLabel(lbl1);
+                c3dgen.addExpression(tmp2, value1.strValue, "/", tmp1);
+                c3dgen.addLabel(lbl2);
+                return new ReturnValue(true, tmp2, type);
             }
         }
         env.setError("Los tipos no son válidos para operaciones aritméticas", exp1.line, exp1.column);
