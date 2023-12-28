@@ -9,8 +9,6 @@ public class ReturnValue {
     public String trueLbl;
     public String falseLbl;
     public boolean isTrue;
-    public boolean isNot = false;
-    public String[] condition;
     public ReturnValue(Type type) {
         this.type = type;
     }
@@ -38,13 +36,6 @@ public class ReturnValue {
     }
     public ReturnValue(boolean isTmp, Type type, String trueLabel, String falseLabel) {
         this.isTmp = isTmp;
-        this.type = type;
-        this.trueLbl = trueLabel;
-        this.falseLbl = falseLabel;
-    }
-    public ReturnValue(boolean isTmp, boolean isNot, Type type, String trueLabel, String falseLabel) {
-        this.isTmp = isTmp;
-        this.isNot = isNot;
         this.type = type;
         this.trueLbl = trueLabel;
         this.falseLbl = falseLabel;
