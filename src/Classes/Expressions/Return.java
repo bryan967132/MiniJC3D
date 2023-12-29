@@ -15,7 +15,7 @@ public class Return extends Expression {
         c3dgen.addComment("--------- Return ----------");
         if(exp != null) {
             ReturnValue exp = this.exp.exec(env, c3dgen);
-            if(exp.type != Type.BOOLEAN) {
+            if(exp.type != Type.BOOLEAN || this.exp.typeExp == TypeExp.CALL_FUNC) {
                 c3dgen.addSetStack("P", exp.strValue);
             } else {
                 String tmp = c3dgen.newLbl();
