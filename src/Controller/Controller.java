@@ -16,6 +16,7 @@ import javax.swing.text.StyledDocument;
 import Classes.Abstracts.Instruction;
 import Classes.Env.Env;
 import Classes.Generator.C3DGen;
+import Classes.Instructions.Function;
 import Classes.Instructions.MainMethod;
 import Classes.Utils.Outs;
 import Classes.Utils.TypeInst;
@@ -70,24 +71,44 @@ public class Controller {
             );
             Parser parser = new Parser(scanner);
             parser.parse();
-            Classes.Utils.Outs.printConsole = new ArrayList<>();
+            Classes.Utils.Outs.resetOuts();
             Env global = new Env(null, "Global");
             C3DGen c3dGen = new C3DGen();
+            c3dGen.enableGlobal();
             MainMethod mainMethod = null;
-            for (Instruction instruction : parser.execute) {
+            for(Instruction instruction : parser.execute) {
                 try {
-                    if (instruction.typeInst == TypeInst.MAIN) {
+                    if(instruction.typeInst == TypeInst.MAIN) {
                         mainMethod = (MainMethod) instruction;
-                    } else {
+                    } else if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
+                        ((Function) instruction).save(global, c3dGen);
+                    } else if(instruction.typeInst == TypeInst.INIT_ID) {
                         instruction.exec(global, c3dGen);
                     }
-                } catch (Exception e) {}
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
-            if (mainMethod != null) {
+            for(Instruction instruction : parser.execute) {
+                try {
+                    if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
+                        instruction.exec(global, c3dGen);
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            c3dGen.enableMain();
+            if(mainMethod != null) {
                 mainMethod.exec(global, c3dGen);
             }
-            String outPrint = "MiniJ: " + currentFile.name + "\n";
-            outPrint += Outs.getStringOuts();
+            String outPrint;
+            if(!Outs.getStringOuts().equals("")) {
+                outPrint = "MiniJ: " + currentFile.name + "\n" + Outs.getStringOuts();
+            } else {
+                c3dGen.generateFinalCode();
+                outPrint = "/* " + currentFile.name + " */\n" + "\n" + c3dGen.getFinalCode();
+            }
             console.setText(outPrint);
         } catch (Exception e) {
             String outPrint = "MiniJ: " + currentFile.name + "\n";
