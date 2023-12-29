@@ -4,21 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-import javax.swing.text.StyledEditorKit;
-import javax.swing.text.TabSet;
-import javax.swing.text.TabStop;
-import javax.swing.text.ViewFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.KeyListener;
@@ -28,7 +17,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import Controller.Controller;
-import Painter.WordPainter;
 import Templates.Button;
 import Templates.Colors;
 import Templates.Icons;
@@ -37,22 +25,16 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
     Controller controller;
     Button analyzeInput, uploadOuts, saveFile;
     EditorArea editorArea;
-    public Icon icono;
-    public ImageIcon image;
+    EditorArea outputArea;
     int indexFilePJ = -1;
     int posCaret;
     JLabel cursorPosition;
-    public JLabel img;
     JPanel editorAreaContent;
-    JPanel editorAreaContentFalse;
+    JPanel outputAreaContent;
     JPanel projects;
-    JScrollPane consoleScroll;
-    public JTextPane console;
-    String input;
     Tag tag;
     ToolBar toolbar;
     Window w;
-    WordPainter painter;
     public IDE(Window w) {
         this.w = w;
         this.controller = w.controller;
@@ -71,8 +53,8 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {}
         projects = new JPanel();
         editorAreaContent = new JPanel();
+        outputAreaContent = new JPanel();
         cursorPosition = new JLabel();
-        console = new JTextPane();
         analyzeInput = new Button();
         uploadOuts = new Button();
         saveFile = new Button();
@@ -98,35 +80,14 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
         cursorPosition.setHorizontalAlignment(JLabel.RIGHT);
         cursorPosition.setVerticalAlignment(JLabel.CENTER);
         //console
-        console.setEditable(false);
-        console.setForeground(Colors.WHITE);
-        console.setBackground(Colors.DARKCOLOR);
-        console.setFont(new java.awt.Font("Consolas",  0,  11));
-        console.setBounds(0, 0, 550, 575);
-
-        console.setEditorKit(
-            new StyledEditorKit() {
-                public ViewFactory getViewFactory() {
-                    return new NoWrapViewFactory();
-                }
-            }
-        );
-
-        TabStop[] tabStops = new TabStop[50];
-        int tabWidth = 4 * console.getFontMetrics(console.getFont()).charWidth(' ');
-        for (int i = 0; i < tabStops.length; i++) {
-            tabStops[i] = new TabStop((i + 1) * tabWidth, TabStop.ALIGN_LEFT, TabStop.LEAD_NONE);
-        }
-        TabSet tabSet = new TabSet(tabStops);
-        StyledDocument doc = console.getStyledDocument();
-        Style paragraphStyle = doc.addStyle("paragraphStyle", null);
-        StyleConstants.setTabSet(paragraphStyle, tabSet);
-        doc.setParagraphAttributes(0, doc.getLength(), paragraphStyle, false);
-
-        console.setText("MiniJ:");
-        consoleScroll = new JScrollPane(console);
-        consoleScroll.setBorder(BorderFactory.createLineBorder(Colors.DARKCOLOR, 8));
-        consoleScroll.setBounds(790, 105, 550, 575);
+        outputAreaContent.setLayout(new BorderLayout());
+        outputAreaContent.setBorder(BorderFactory.createLineBorder(Colors.DARKCOLOR, 8));
+        outputArea = new EditorArea();
+        outputArea.editor.addKeyListener(this);
+        outputAreaContent.add(outputArea, BorderLayout.WEST);
+        outputAreaContent.add(outputArea.scroll, BorderLayout.CENTER);
+        outputAreaContent.setBounds(790, 105, 550, 575);
+        outputArea.scroll.addKeyListener(this);
         //analyzeInput
         analyzeInput.locationSize(440, 56, 30, 30);
         analyzeInput.Icon(Icons.PLAY);
@@ -168,8 +129,8 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
     void addComponents() {
         this.add(projects);
         this.add(editorAreaContent);
+        this.add(outputAreaContent);
         this.add(cursorPosition);
-        this.add(consoleScroll);
         this.add(analyzeInput);
         this.add(uploadOuts);
         this.add(saveFile);
@@ -189,7 +150,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
     }
     void execute() {
         controller.setFormat(editorArea.editor);
-        controller.analyze(this,  indexFilePJ,  editorArea.editor,  console);
+        controller.analyze(this,  indexFilePJ,  editorArea.editor,  outputArea.editor);
     }
     void setFormat() {
         controller.setFormat(editorArea.editor);
@@ -233,15 +194,15 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
                 execute();
             }
             else {
-                console.setText("MiniJC3D:\n");
+                outputArea.editor.setText("MiniJC3D:\n");
             }
         }
         else if(e.getSource() == uploadOuts) {
             if(indexFilePJ != -1) {
-                //controller.validateString(indexFilePJ, editorArea.editor, console);
+                //controller.validateString(indexFilePJ, editorArea.editor, outputArea.editor);
             }
             else {
-                console.setText("MiniJC3D:");
+                outputArea.editor.setText("MiniJC3D:");
             }
         }
         else if(e.getSource() == saveFile) {
