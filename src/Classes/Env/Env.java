@@ -82,9 +82,6 @@ public class Env {
         }
         return env;
     }
-    public void setPrint(String print) {
-        Outs.printConsole.add(print);
-    }
     public void setError(String errorD, int line, int column) {
         if(!match(errorD, line, column)) {
             Outs.errors.add(new Error(line, column, TypeError.SEMANTIC, errorD));
