@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 public class C3DGen {
     private int labelCount = 0;
     private int temporalCount = 0;
-    private String name;
     private ArrayList<Instruction> C3DCode = new ArrayList<>();
     private ArrayList<Instruction> C3DMain = new ArrayList<>();
     private ArrayList<Instruction> C3DNatives = new ArrayList<>();
@@ -28,9 +27,6 @@ public class C3DGen {
     private boolean[] tmpKeys = new boolean[keys.length];
     public boolean thereAreDeclarations() {
         return thereAreDeclarations;
-    }
-    public void setFileName(String name) {
-        this.name = name;
     }
     public void enableMain() {
         keys = new boolean[] {true, false, false, false};
@@ -534,11 +530,6 @@ public class C3DGen {
     }
     public void generateFinalCode() {
         C3DCode.add(new Generic("/* ----- HEADER ----- */"));
-        if(declarations.size() > 0) {
-            thereAreDeclarations = true;
-            declarations.add(0, "/* -- DECLARATIONS -- */");
-            C3DCode.add(new Generic("#include \"./" + name + ".hpp\""));
-        }
         C3DCode.add(new Generic("#include <stdio.h>"));
         C3DCode.add(new Generic(""));
         C3DCode.add(new Generic("float heap[30101999];"));
@@ -549,6 +540,14 @@ public class C3DGen {
             C3DCode.add(new Generic("float " + temporals.stream().map(String::toString).collect(Collectors.joining(", ")) + ";"));
         }
         C3DCode.add(new Generic(""));
+        // DECLARATIONS
+        if(declarations.size() > 0) {
+            C3DCode.add(new Generic("/* --- DECLARATIONS ---- */"));
+            for(String declaration : declarations) {
+                C3DCode.add(new Generic(declaration));
+            }
+            C3DCode.add(new Generic(""));
+        }
         // NATIVES
         if(C3DNatives.size() > 0) {
             C3DCode.add(new Generic("/* ------ NATIVES ------ */"));
