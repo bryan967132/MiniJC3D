@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.util.ArrayList;
 import Classes.Abstracts.Instruction;
 import Classes.Env.Env;
 import Classes.Generator.C3DGen;
@@ -20,7 +19,7 @@ import Language.Scanner;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/Input5.minij");
+            String input = readInput("./Inputs/ParImpar.minij");
             Scanner scanner = new Scanner(
                 new BufferedReader(
                     new StringReader(input)
@@ -28,10 +27,9 @@ public class ParserTest {
             );
             Parser parser = new Parser(scanner);
             parser.parse();
-            Classes.Utils.Outs.printConsole = new ArrayList<>();
+            Classes.Utils.Outs.resetOuts();
             Env global = new Env(null, "Global");
             C3DGen c3dGen = new C3DGen();
-            c3dGen.setFileName("Test");
             c3dGen.enableGlobal();
             MainMethod mainMethod = null;
             for(Instruction instruction : parser.execute) {
