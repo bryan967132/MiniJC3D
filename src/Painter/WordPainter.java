@@ -74,6 +74,11 @@ public class WordPainter {
         StyleConstants.setForeground(attr,Colors.USEVARIABLE);
         doc.setCharacterAttributes(startPos,endPos,attr,true);
     }
+    public void USEVARIABLE2(int startPos,int endPos) {
+        SimpleAttributeSet attr = new SimpleAttributeSet();
+        StyleConstants.setForeground(attr,Colors.USEVARIABLE2);
+        doc.setCharacterAttributes(startPos,endPos,attr,true);
+    }
     public void NUMBER(int startPos,int endPos) {
         SimpleAttributeSet attr = new SimpleAttributeSet();
         StyleConstants.setForeground(attr,Colors.NUMBER);
