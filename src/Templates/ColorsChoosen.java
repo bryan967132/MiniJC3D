@@ -202,6 +202,15 @@ public class ColorsChoosen {
 		}
 	}
 
+	public static Color getUseVariable2(int n) {
+		switch(n) {
+			case 0: return getColor(156, 220, 254);// rgb(156, 220, 254)
+			case 1: return getColor(121, 192, 255);// rgb(121, 192, 255)
+			case 2: return getColor(243, 236, 121);// rgb(243, 236, 121)
+			default: return getColor(255, 255, 255);// rgb(255, 255, 255)
+		}
+	}
+
 	public static Color getPar1(int n) {
 		switch(n) {
 			case 0: return getColor(218, 112, 214);// rgb(218, 112, 214)
