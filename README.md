@@ -3,6 +3,7 @@
 Versión minimizada de c++.  
 Implementa patrón de diseño interpreter.  
 Genera código de 3 direcciones con sintaxis de c++.
+Simula heap y stack con vectores.
 
 ## VSCode Theme
 ![Window](Images/ScreenVSCodeTheme.png)
