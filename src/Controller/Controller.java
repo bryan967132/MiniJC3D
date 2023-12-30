@@ -27,6 +27,8 @@ import Language.Parser;
 import Language.ParserF;
 import Language.Scanner;
 import Language.ScannerF;
+import LanguageOut.ParserFOut;
+import LanguageOut.ScannerFOut;
 import Painter.WordPainter;
 public class Controller {
     public ArrayList<IconFile> pjs = new ArrayList<>();
@@ -57,6 +59,25 @@ public class Controller {
             parser.parse();
         }
         catch(Exception e) {}
+    }
+    public void setFormatOut(JTextPane output) {
+        try {
+            StyledDocument doc = output.getStyledDocument();
+            String input = doc.getText(0, doc.getLength());
+            WordPainter painter = new WordPainter();
+            ScannerFOut scanner = new ScannerFOut(
+                new BufferedReader(
+                    new StringReader(input)
+                ), 
+                painter
+            );
+            painter.setStyle(output);
+            ParserFOut parser = new ParserFOut(scanner, painter);
+            parser.parse();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
     public void analyze(IDE ide, int index, JTextPane editor, JTextPane console) {
         IconFile currentFile = pjs.get(index);
