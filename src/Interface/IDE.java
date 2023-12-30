@@ -152,7 +152,6 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
     void execute() {
         controller.setFormat(editorArea.editor);
         controller.analyze(this,  indexFilePJ,  editorArea.editor,  outputArea.editor);
-        controller.setFormatOut(outputArea.editor);
     }
     void setFormat() {
         controller.setFormat(editorArea.editor);
