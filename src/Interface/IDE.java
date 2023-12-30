@@ -84,6 +84,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
         outputAreaContent.setBorder(BorderFactory.createLineBorder(Colors.DARKCOLOR, 8));
         outputArea = new EditorArea();
         outputArea.editor.addKeyListener(this);
+        outputArea.editor.setEditable(false);
         outputAreaContent.add(outputArea, BorderLayout.WEST);
         outputAreaContent.add(outputArea.scroll, BorderLayout.CENTER);
         outputAreaContent.setBounds(790, 105, 550, 575);
@@ -151,6 +152,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseWhe
     void execute() {
         controller.setFormat(editorArea.editor);
         controller.analyze(this,  indexFilePJ,  editorArea.editor,  outputArea.editor);
+        controller.setFormatOut(outputArea.editor);
     }
     void setFormat() {
         controller.setFormat(editorArea.editor);
