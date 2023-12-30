@@ -1,7 +1,8 @@
 # MiniJCompiler
 ## Generador de Código de 3 Direcciones: JFlex y CUP
 Versión minimizada de c++.  
-Implementa patrón de diseño interpreter.
+Implementa patrón de diseño interpreter.  
+Genera código de 3 direcciones con sintaxis de c++.
 
 ## VSCode Theme
 ![Window](Images/ScreenVSCodeTheme.png)
