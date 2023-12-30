@@ -75,9 +75,7 @@ public class Controller {
             ParserFOut parser = new ParserFOut(scanner, painter);
             parser.parse();
         }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+        catch(Exception e) {}
     }
     public void analyze(IDE ide, int index, JTextPane editor, JTextPane console) {
         IconFile currentFile = pjs.get(index);
@@ -106,31 +104,26 @@ public class Controller {
                     } else if(instruction.typeInst == TypeInst.INIT_ID) {
                         instruction.exec(global, c3dGen);
                     }
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
+                } catch(Exception e) {}
             }
             for(Instruction instruction : parser.execute) {
                 try {
                     if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
                         instruction.exec(global, c3dGen);
                     }
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
+                } catch(Exception e) {}
             }
             c3dGen.enableMain();
             if(mainMethod != null) {
                 mainMethod.exec(global, c3dGen);
             }
-            String outPrint;
             if(!Outs.getStringOuts().equals("")) {
-                outPrint = "MiniJ: " + currentFile.name + "\n" + Outs.getStringOuts();
+                console.setText("MiniJ: " + currentFile.name + "\n" + Outs.getStringOuts());
             } else {
                 c3dGen.generateFinalCode();
-                outPrint = "/* " + currentFile.name + " */\n" + "\n" + c3dGen.getFinalCode();
+                console.setText("/* " + currentFile.name + " */\n" + "\n" + c3dGen.getFinalCode());
+                setFormatOut(console);
             }
-            console.setText(outPrint);
         } catch (Exception e) {
             String outPrint = "MiniJ: " + currentFile.name + "\n";
             outPrint += Outs.getStringOuts();
