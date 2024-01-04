@@ -15,211 +15,211 @@ Simula heap y stack con vectores.
 ![Window](Images/ScreenEclipseTheme.png)
 
 ## Gramática Libre del Contexto
-```java
-INIT ::= INSTSGLOBAL
+```html
+<INIT> ::= <INSTSGLOBAL>
 
-INSTSGLOBAL ::=
-    INSTSGLOBAL INSTGLOBAL |
-    INSTGLOBAL             
+<INSTSGLOBAL> ::=
+    <INSTSGLOBAL> <INSTGLOBAL> |
+    <INSTGLOBAL>
 
-INSTGLOBAL ::=
-    CALLMAINFUNC |
-    DECLID       |
-    DECLFUNC     
+<INSTGLOBAL> ::=
+    <CALLMAINFUNC> |
+    <DECLID>       |
+    <DECLFUNC>
 
-CALLMAINFUNC ::=
-    'main' CALLFUNC ';' 
+<CALLMAINFUNC> ::=
+    'main' <CALLFUNC> ';'
 
-CALLFUNC ::=
-    TK_id '(' LISTARGS ')' |
-    TK_id '(' ')'          
+<CALLFUNC> ::=
+    TK_id '(' <LISTARGS> ')' |
+    TK_id '(' ')'
 
-LISTARGS ::=
-    LISTARGS ',' EXP |
-    EXP                   
+<LISTARGS> ::=
+    <LISTARGS> ',' <EXP> |
+    <EXP>
 
-DECLID ::=
-    TYPE INITIDS ';' 
+<DECLID> ::=
+    <TYPE> <INITIDS> ';'
 
-INITIDS ::=
-    INITIDS ',' INITID |
-    INITID                  
+<INITIDS> ::=
+    <INITIDS> ',' <INITID> |
+    <INITID>
 
-INITID ::=
-    TK_id '=' EXP |
-    TK_id            
+<INITID> ::=
+    TK_id '=' <EXP> |
+    TK_id
 
-DECLFUNC ::=
-    TYPE   TK_id '(' LISTPARAMS ')' ENV |
-    'void' TK_id '(' LISTPARAMS ')' ENV |
-    TYPE   TK_id '(' ')' ENV            |
-    'void' TK_id '(' ')' ENV            
+<DECLFUNC> ::=
+    <TYPE> TK_id '(' <LISTPARAMS> ')' <ENV> |
+    'void' TK_id '(' <LISTPARAMS> ')' <ENV> |
+    <TYPE> TK_id '(' ')' <ENV>              |
+    'void' TK_id '(' ')' <ENV>
 
-LISTPARAMS ::=
-    LISTPARAMS ',' TYPE TK_id |
-    TYPE TK_id                     
+<LISTPARAMS> ::=
+    <LISTPARAMS> ',' <TYPE> TK_id |
+    <TYPE> TK_id
 
-IFSTRUCT ::=
-    'if' '(' EXP ')' ENV 'else' IFSTRUCT |
-    'if' '(' EXP ')' ENV 'else' ENV      |
-    'if' '(' EXP ')' ENV                  
+<IFSTRUCT> ::=
+    'if' '(' <EXP> ')' <ENV> 'else' <IFSTRUCT> |
+    'if' '(' <EXP> ')' <ENV> 'else' <ENV>      |
+    'if' '(' <EXP> ')' <ENV>
 
-SWITCHSTRUCT ::=
-    'switch' '(' EXP ')' ENVS 
+<SWITCHSTRUCT> ::=
+    'switch' '(' <EXP> ')' <ENVS>
 
-ENVS ::=
-    '{' CASESDEFAULT '}' |
-    '{' '}'              
+<ENVS> ::=
+    '{' <CASESDEFAULT> '}' |
+    '{' '}'
 
-CASESDEFAULT ::=
-    CASES DEFAULT |
-    CASES         |
-    DEFAULT       
+<CASESDEFAULT> ::=
+    <CASES> <DEFAULT> |
+    <CASES>           |
+    <DEFAULT>
 
-CASES ::= 
-    CASES CASE |
-    CASE       
+<CASES> ::= 
+    <CASES> <CASE> |
+    <CASE>
 
-CASE ::= 
-    'case' EXP ':' INSTRUCTIONS |
-    'case' EXP ':' ENV          |
-    'case' EXP ':'              
+<CASE> ::= 
+    'case' <EXP> ':' <INSTRUCTIONS> |
+    'case' <EXP> ':' <ENV>          |
+    'case' <EXP> ':'
 
-DEFAULT ::=
-    'default' ':' INSTRUCTIONS |
-    'default' ':' ENV          |
-    'default' ':'              
+<DEFAULT> ::=
+    'default' ':' <INSTRUCTIONS> |
+    'default' ':' <ENV>          |
+    'default' ':'
 
-LOOPFOR ::=
-    'for' '(' ARGSFOR ')' ENV 
+<LOOPFOR> ::=
+    'for' '(' <ARGSFOR> ')' <ENV>
 
-ARGSFOR ::=
-    INITIALIZEFOR ';' EXP ';' UPDATESFOR |
-    INITIALIZEFOR ';' EXP ';'            |
-    INITIALIZEFOR ';' ';' UPDATESFOR     |
-    ';' EXP ';' UPDATESFOR               |
-    INITIALIZEFOR ';' ';'                |
-    ';' EXP ';'                          |
-    ';' ';' UPDATESFOR                   |
-    ';' ';'                              
+<ARGSFOR> ::=
+    <INITIALIZEFOR> ';' <EXP> ';' <UPDATESFOR> |
+    <INITIALIZEFOR> ';' <EXP> ';'              |
+    <INITIALIZEFOR> ';' ';' <UPDATESFOR>       |
+    ';' <EXP> ';' <UPDATESFOR>                 |
+    <INITIALIZEFOR> ';' ';'                    |
+    ';' <EXP> ';'                              |
+    ';' ';' <UPDATESFOR>                       |
+    ';' ';'
 
-INITIALIZEFOR ::=
-    TYPE INITIDSFOR |
-    REASIGNS        
+<INITIALIZEFOR> ::=
+    <TYPE> <INITIDSFOR> |
+    <REASIGNS>
 
-INITIDSFOR ::=
-    INITIDSFOR ',' INITIDFOR |
-    INITIDFOR                     
+<INITIDSFOR> ::=
+    <INITIDSFOR> ',' <INITIDFOR> |
+    <INITIDFOR>
 
-INITIDFOR ::=
-    TK_id '=' EXP 
+<INITIDFOR> ::=
+    TK_id '=' <EXP>
 
-REASIGNS ::=
-    REASIGNS ',' REASIGN |
-    REASIGN                   
+<REASIGNS> ::=
+    <REASIGNS> ',' <REASIGN> |
+    <REASIGN>
 
-UPDATESFOR ::=
-    UPDATESFOR ',' UPDATEFOR |
-    UPDATEFOR                     
+<UPDATESFOR> ::=
+    <UPDATESFOR> ',' <UPDATEFOR> |
+    <UPDATEFOR>
 
-UPDATEFOR ::=
-    INCDEC  |
-    REASIGN |
-    ADDSUB  
+<UPDATEFOR> ::=
+    <INCDEC>  |
+    <REASIGN> |
+    <ADDSUB>
 
-LOOPWHILE ::=
-    'while' '(' EXP ')' ENV 
+<LOOPWHILE> ::=
+    'while' '(' <EXP> ')' <ENV>
 
-LOOPDOWHILE ::=
-    'do' ENV 'while' '(' EXP ')' ';' 
+<LOOPDOWHILE> ::=
+    'do' <ENV> 'while' '(' <EXP> ')' ';'
 
-REASIGN ::=
-    TK_id '=' EXP 
+<REASIGN> ::=
+    TK_id '=' <EXP>
 
-INCDEC ::=
+<INCDEC> ::=
     TK_id '++' |
-    TK_id '--' 
+    TK_id '--'
 
-ADDSUB ::=
-    TK_id '+=' EXP |
-    TK_id '-=' EXP 
+<ADDSUB> ::=
+    TK_id '+=' <EXP> |
+    TK_id '-=' <EXP>
 
-TERNARY ::=
-    EXP '?' EXP ':' EXP 
+<TERNARY> ::=
+    <EXP> '?' <EXP> ':' <EXP>
 
-PRINT ::=
-    'print' '(' EXP ')' ';' |
-    'print' '(' ')' ';'     
+<PRINT> ::=
+    'print' '(' <EXP> ')' ';' |
+    'print' '(' ')' ';'
 
-ENV ::=
-    '{' INSTRUCTIONS '}' |
-    '{' '}'              
+<ENV> ::=
+    '{' <INSTRUCTIONS> '}' |
+    '{' '}'
 
-INSTRUCTIONS ::=
-    INSTRUCTIONS INSTRUCTION |
-    INSTRUCTION              
+<INSTRUCTIONS> ::=
+    <INSTRUCTIONS> <INSTRUCTION> |
+    <INSTRUCTION>
 
-INSTRUCTION ::=
-    DECLID           |
-    IFSTRUCT         |
-    SWITCHSTRUCT     |
-    LOOPFOR          |
-    LOOPWHILE        |
-    LOOPDOWHILE      |
-    REASIGN      ';' |
-    ADDSUB       ';' |
-    INCDEC       ';' |
-    CALLFUNC     ';' |
-    PRINT            |
-    'return' EXP ';' |
-    'return'     ';' |
-    'continue'   ';' |
-    'break'      ';' 
+<INSTRUCTION> ::=
+    <DECLID>           |
+    <IFSTRUCT>         |
+    <SWITCHSTRUCT>     |
+    <LOOPFOR>          |
+    <LOOPWHILE>        |
+    <LOOPDOWHILE>      |
+    <REASIGN>      ';' |
+    <ADDSUB>       ';' |
+    <INCDEC>       ';' |
+    <CALLFUNC>     ';' |
+    <PRINT>            |
+    'return' <EXP> ';' |
+    'return'       ';' |
+    'continue'     ';' |
+    'break'        ';' 
 
-TYPE ::=
+<TYPE> ::=
     'String'  |
     'int'     |
     'boolean' |
     'char'    |
     'double'  
 
-EXP ::=
-    ARITHMETICS |
-    RELATIONALS |
-    LOGICS      |
-    INCDEC      |
-    CALLFUNC    |
-    TERNARY     |
-    TK_id       |
-    TK_string   |
-    TK_char     |
-    TK_int      |
-    TK_double   |
-    'true'      |
-    'false'     |
-    '(' EXP ')' 
+<EXP> ::=
+    <ARITHMETICS> |
+    <RELATIONALS> |
+    <RELATIONALS> |
+    <INCDEC>      |
+    <CALLFUNC>    |
+    <TERNARY>     |
+    TK_id         |
+    TK_string     |
+    TK_char       |
+    TK_int        |
+    TK_double     |
+    'true'        |
+    'false'       |
+    '(' <EXP> ')'
 
-ARITHMETICS ::=
-    EXP '+' EXP |
-    EXP '-' EXP |
-    EXP '*' EXP |
-    EXP '/' EXP |
-    EXP '^' EXP |
-    EXP '%' EXP |
-    '-'     EXP 
+<ARITHMETICS> ::=
+    <EXP> '+' <EXP> |
+    <EXP> '-' <EXP> |
+    <EXP> '*' <EXP> |
+    <EXP> '/' <EXP> |
+    <EXP> '^' <EXP> |
+    <EXP> '%' <EXP> |
+    '-'   <EXP>
 
-RELATIONALS ::=
-    EXP '==' EXP |
-    EXP '!=' EXP |
-    EXP '<=' EXP |
-    EXP '>=' EXP |
-    EXP '<'  EXP |
-    EXP '>'  EXP 
+<RELATIONALS> ::=
+    <EXP> '==' <EXP> |
+    <EXP> '!=' <EXP> |
+    <EXP> '<=' <EXP> |
+    <EXP> '>=' <EXP> |
+    <EXP> '<'  <EXP> |
+    <EXP> '>'  <EXP>
 
-LOGICS ::=
-    EXP '&&' EXP |
-    EXP '||' EXP |
-    '!'      EXP 
+<RELATIONALS> ::=
+    <EXP> '&&' <EXP> |
+    <EXP> '||' <EXP> |
+    '!'   <EXP> 
 ```
 
 ## Instalación JFlex y CUP
