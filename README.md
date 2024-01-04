@@ -222,6 +222,21 @@ Simula heap y stack con vectores.
     '!'   <EXP> 
 ```
 
+## Precedencia de Operadores
+| Nivel | Asociatividad  |                              Token                               |
+|   -   |       -        |                                -                                 |
+|   10  | Izquierda      | ```TK_question```, ```TK_colon```                                |
+|   9   | Izquierda      | ```TK_or```                                                      |
+|   8   | Izquierda      | ```TK_and```                                                     |
+|   7   | Derecha        | ```TK_not```                                                     |
+|   6   | Izquierda      | ```TK_equequ```, ```TK_notequ```                                 |
+|   5   | Izquierda      | ```TK_lessequ```, ```TK_moreequ```, ```TK_less```, ```TK_more``` |
+|   4   | Izquierda      | ```TK_plus```, ```TK_minus```                                    |
+|   3   | Izquierda      | ```TK_mult```, ```TK_div```, ```RW_mod```                        |
+|   2   | No Asociativa  | ```RW_pow```                                                     |
+|   1   | Derecha        | ```TK_uminus```                                                  |
+|   0   | Izquierda      | ```TK_inc```, ```TK_dec```                                       |
+
 ## Instalación JFlex y CUP
 * Descargar la JFlex: [JFlex](https://jflex.de/download.html)
 * Descargar la CUP: [CUP](http://www2.cs.tum.edu/projects/cup/)
@@ -267,3 +282,15 @@ public class GParser {
     }
 }
 ```
+
+## Intérprete con JFlex y CUP
+Usuario: [brandonT2002](https://github.com/brandonT2002)  
+Repositorio: [MiniJ](https://github.com/brandonT2002/MiniJ)
+
+## Intérprete con JavaCC
+Usuario: [bryan967132](https://github.com/bryan967132)  
+Repositorio: [MiniJInterpreter](https://github.com/bryan967132/MiniJInterpreter)
+
+## Intérprete de Pseudocódigo con JFlex y CUP
+Usuario: [bryan967132](https://github.com/bryan967132)  
+Repositorio: [PseudoParser](https://github.com/bryan967132/PseudoParser)
