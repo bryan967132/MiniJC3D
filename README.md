@@ -232,8 +232,8 @@ Simula heap y stack con vectores.
 |   6   | Izquierda      | ```TK_equequ```, ```TK_notequ```                                 |
 |   5   | Izquierda      | ```TK_lessequ```, ```TK_moreequ```, ```TK_less```, ```TK_more``` |
 |   4   | Izquierda      | ```TK_plus```, ```TK_minus```                                    |
-|   3   | Izquierda      | ```TK_mult```, ```TK_div```, ```RW_mod```                        |
-|   2   | No Asociativa  | ```RW_pow```                                                     |
+|   3   | Izquierda      | ```TK_mult```, ```TK_div```, ```TK_mod```                        |
+|   2   | No Asociativa  | ```TK_pow```                                                     |
 |   1   | Derecha        | ```TK_uminus```                                                  |
 |   0   | Izquierda      | ```TK_inc```, ```TK_dec```                                       |
 
