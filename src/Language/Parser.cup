@@ -47,7 +47,7 @@ non terminal ArrayList<Instruction> INSTSGLOBAL;
 non terminal ArrayList<Sentence> INSTRUCTIONS;
 non terminal ArrayList<Expression> LISTARGS;
 non terminal ArrayList<Parameter> LISTPARAMS;
-non terminal Expression EXP, ARITHMETICS, RELATIONALS, LOGICS, INCDEC, CALLFUNC, TERNARY;
+non terminal Expression EXP, ARITHMETICS, RELATIONALS, LOGICS, INCDEC, CALLFUNC, TERNARY, CAST;
 non terminal Instruction CALLMAINFUNC, INSTGLOBAL, PRINT, ADDSUB;
 non terminal Instruction DECLID, DECLFUNC;
 non terminal ArrayList<IDValue> INITIDS, INITIDSFOR;
@@ -213,6 +213,9 @@ ADDSUB ::=
 TERNARY ::=
     EXP :c TK_question EXP :y TK_colon EXP :n {:RESULT = new Ternary(cleft, cright, c, y, n);:} ;
 
+CAST ::=
+    TYPE :t TK_lpar EXP :exp TK_rpar {:RESULT = new Cast(tleft, tright, exp, t);:} ;
+
 PRINT ::=
     RW_print :p TK_lpar EXP :exp TK_rpar TK_semicolon {:RESULT = new Print(pleft, pright, exp); :} |
     RW_print :p TK_lpar TK_rpar TK_semicolon          {:RESULT = new Print(pleft, pright, null);:} ;
@@ -257,6 +260,7 @@ EXP ::=
     INCDEC      :exp         {:RESULT = exp;:} |
     CALLFUNC    :exp         {:RESULT = exp;:} |
     TERNARY     :exp         {:RESULT = exp;:} |
+    CAST        :exp         {:RESULT = exp;:} |
     TK_id       :id          {:RESULT = new AccessID(idleft, idright, id);:} |
     TK_string   :p           {:RESULT = new Primitive(pleft, pright, p, Type.STRING); :} |
     TK_char     :p           {:RESULT = new Primitive(pleft, pright, p, Type.CHAR);   :} |

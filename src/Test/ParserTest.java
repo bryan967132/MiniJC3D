@@ -19,7 +19,7 @@ import Language.Scanner;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/ParImpar.minij");
+            String input = readInput("./Inputs/Input1.minij");
             Scanner scanner = new Scanner(
                 new BufferedReader(
                     new StringReader(input)

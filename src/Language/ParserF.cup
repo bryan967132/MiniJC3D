@@ -33,7 +33,7 @@ terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_comma, TK_colon, TK_semic
 
 /* 4. No Terminales*/
 non terminal String INIT, INSTSGLOBAL, INSTGLOBAL, CALLMAINFUNC, CALLFUNC, LISTARGS, LISTPARAMS;
-non terminal String EXP, ARITHMETICS, RELATIONALS, LOGICS, INCDEC, ADDSUB, TERNARY;
+non terminal String EXP, ARITHMETICS, RELATIONALS, LOGICS, INCDEC, ADDSUB, TERNARY, CAST;
 non terminal String DECLID, TYPE, INITIDS, INITID, DECLFUNC, ENV, INSTRUCTIONS, INSTRUCTION;
 non terminal String PRINT, IFSTRUCT, SWITCHSTRUCT, ENVS, CASESDEFAULT, CASES, DEFAULT, CASE;
 non terminal String LOOPWHILE, LOOPDOWHILE, LOOPFOR, ARGSFOR, INITIALIZE, UPDATESFOR, UPDATEFOR, REASIGNS, REASIGN;
@@ -198,6 +198,9 @@ ADDSUB ::=
 TERNARY ::=
     EXP TK_question :q {:painter.SYMBS1(qleft, qright);:} EXP TK_colon :c {:painter.SYMBS1(cleft, cright);:} EXP ;
 
+CAST ::=
+    TYPE COLORLPAR EXP COLORRPAR ;
+
 PRINT ::=
     PRINTCOLOR COLORLPAR EXP COLORRPAR TK_semicolon |
     PRINTCOLOR COLORLPAR COLORRPAR TK_semicolon     ;
@@ -245,6 +248,7 @@ EXP ::=
     INCDEC                  |
     CALLFUNC                |
     TERNARY                 |
+    CAST                    |
     TK_id     :tr           {:painter.USEVARIABLE(trleft, trright);:} |
     TK_string :tr           {:painter.STRING(trleft, trright);     :} |
     TK_char   :tr           {:painter.CHAR(trleft, trright);       :} |
