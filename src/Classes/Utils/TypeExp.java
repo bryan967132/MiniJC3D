@@ -11,4 +11,5 @@ public enum TypeExp {
     CALL_FUNC     ,
     RETURN        ,
     TERNARY       ,
+    CAST          ,
 }

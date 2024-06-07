@@ -20,7 +20,9 @@ public class C3DGen {
     private boolean thereIsPrintString = false;
     private boolean thereIsConcatString = false;
     private boolean thereIsIntToString = false;
+    private boolean thereIsStringToInt = false;
     private boolean thereIsDoubleToString = false;
+    private boolean thereIsStringToDouble = false;
     private boolean thereIsCharToString = false;
     private boolean thereAreDeclarations = false;
     private boolean[] keys = {false, false, false, false}; // main, natives, functions, global
@@ -382,6 +384,7 @@ public class C3DGen {
     }
     public void generateDoubleToString() {
         if(!thereIsDoubleToString) {
+            //generateMod();
             // Temporales y Etiquetas
             String tmp1 = newTmp();
             String tmp2 = newTmp();
@@ -409,32 +412,34 @@ public class C3DGen {
             addAsign(tmp1, "H");
             addExpression(tmp2, "P", "+", "1");
             addGetStack(tmp3, tmp2);
-            addAsign(tmp8, "(int) " + tmp3);
-            addIf(tmp8, "==", "0", lbl5);
+            addAsign(tmp4, "(int) " + tmp3);
+            addIf(tmp4, "==", "0", lbl5);
             addIf(tmp3, ">", "0", lbl1);
             addAsign(tmp3, "-" + tmp3);
             addSetHeap("H", "45");
             nextHeap();
             addLabel(lbl1);
-            addAsign(tmp4, tmp3);
             addAsign(tmp5, tmp3);
-            addAsign(tmp6, "0");
-            addAsign(tmp7, "1");
+            addAsign(tmp6, tmp3);
+            addAsign(tmp7, "0");
+            addAsign(tmp8, "1");
             addLabel(lbl2);
-            addIf(tmp4, "<", "1", lbl3);
-            addExpression(tmp7, tmp7, "*", "10");
-            addExpression(tmp4, tmp4, "/", "10");
+            addIf(tmp5, "<", "1", lbl3);
+            addExpression(tmp8, tmp8, "*", "10");
+            addExpression(tmp5, tmp5, "/", "10");
             addGoto(lbl2);
             addLabel(lbl3);
-            addExpression(tmp7, tmp7, "/", "10");
+            addExpression(tmp8, tmp8, "/", "10");
             addLabel(lbl4);
-            addIf(tmp7, "<", "1", lbl6);
-            addExpression(tmp5, tmp3, "/", tmp7);
-            addExpression(tmp6, tmp5, "+", "48");
-            addSetHeap("H", tmp6);
+            addIf(tmp8, "<", "1", lbl6);
+            addExpression(tmp6, tmp3, "/", tmp8);
+            addExpression(tmp7, tmp6, "+", "48");
+            addSetHeap("H", tmp7);
             nextHeap();
-            addExpression(tmp3, tmp3, "-", "(int) " + tmp5);
-            addExpression(tmp7, tmp7, "/", "10");
+            addExpression(tmp5, tmp3, "/", tmp8);
+            addExpression(tmp5, "(int) " + tmp5, "*", tmp8);
+            addExpression(tmp3, tmp3, "-", tmp5);
+            addExpression(tmp8, tmp8, "/", "10");
             addGoto(lbl4);
             addLabel(lbl5);
             addSetHeap("H", "48");
@@ -449,16 +454,18 @@ public class C3DGen {
             nextHeap();
             addGoto(lblA);
             addLabel(lbl8);
-            addAsign(tmp4, "0");
+            addAsign(tmp5, "0");
             addLabel(lbl9);
-            addIf(tmp4, ">=", "4", lblA);
+            addIf(tmp5, ">=", "4", lblA);
             addIf(tmp3, "==", "0", lblA);
             addExpression(tmp3, tmp3, "*", "10");
-            addExpression(tmp6, tmp3, "+", "48");
-            addSetHeap("H", tmp6);
+            addExpression(tmp7, tmp3, "+", "48");
+            addIf(tmp7, "<", "48", lblA);
+            addIf(tmp7, ">", "57", lblA);
+            addSetHeap("H", tmp7);
             nextHeap();
             addExpression(tmp3, tmp3, "-", "(int) " + tmp3);
-            addExpression(tmp4, tmp4, "+", "1");
+            addExpression(tmp5, tmp5, "+", "1");
             addGoto(lbl9);
             addLabel(lblA);
             addSetHeap("H", "-1");
@@ -498,6 +505,18 @@ public class C3DGen {
             thereIsCharToString = true;
         }
     }
+    public void generateStringToInt() {
+        if(!thereIsStringToInt) {
+            // Temporales y Etiquetas
+            //
+            saveSetting();
+            enableNatives();
+            //
+            //
+            restoreSetting();
+            thereIsStringToInt = true;
+        }
+    }
     public void generateParserString(Classes.Utils.Type type) {
         switch (type) {
             case INT:
@@ -529,7 +548,7 @@ public class C3DGen {
         }
     }
     public void generateFinalCode() {
-        C3DCode.add(new Generic("/* ----- HEADER ----- */"));
+        C3DCode.add(new Generic("/* ------ HEADER ------- */"));
         C3DCode.add(new Generic("#include <stdio.h>"));
         C3DCode.add(new Generic(""));
         C3DCode.add(new Generic("float heap[30101999];"));
@@ -563,7 +582,7 @@ public class C3DGen {
             }
         }
         // MAIN
-        C3DCode.add(new Generic("/* ------ MAIN ------ */"));
+        C3DCode.add(new Generic("/* ------- MAIN -------- */"));
         C3DCode.add(new Generic("int main() {"));
         C3DCode.add(new Generic("\tP = 0;"));
         C3DCode.add(new Generic("\tH = 0;"));

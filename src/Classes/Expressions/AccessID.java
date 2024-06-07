@@ -4,6 +4,7 @@ import Classes.Env.Env;
 import Classes.Env.Symbol;
 import Classes.Generator.C3DGen;
 import Classes.Utils.ReturnValue;
+import Classes.Utils.Type;
 import Classes.Utils.TypeExp;
 public class AccessID extends Expression {
     private String id;
@@ -29,6 +30,6 @@ public class AccessID extends Expression {
             return new ReturnValue(true, tmp1, value.type);
         }
         c3dgen.addComment("------- Fin Acceso --------");
-        return null;
+        return new ReturnValue(false, Type.NULL);
     }
 }
