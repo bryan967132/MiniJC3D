@@ -823,6 +823,7 @@ public class ParserF extends java_cup.runtime.lr_parser {
     public ScannerF s;
     int nIB = 0;
     WordPainter painter;
+    @SuppressWarnings("deprecation")
     public ParserF(ScannerF s, WordPainter painter) {
         super(s);
         this.s = s;

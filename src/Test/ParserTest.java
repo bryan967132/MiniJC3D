@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
+
 import Classes.Abstracts.Instruction;
 import Classes.Env.Env;
 import Classes.Generator.C3DGen;
@@ -17,6 +19,7 @@ import Classes.Utils.TypeInst;
 import Language.Parser;
 import Language.Scanner;
 public class ParserTest {
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
         try {
             String input = readInput("./Inputs/Input1.minij");
@@ -26,13 +29,13 @@ public class ParserTest {
                 )
             );
             Parser parser = new Parser(scanner);
-            parser.parse();
+            ArrayList<Instruction> execute = (ArrayList<Instruction>) parser.parse().value;
             Classes.Utils.Outs.resetOuts();
             Env global = new Env(null, "Global");
             C3DGen c3dGen = new C3DGen();
             c3dGen.enableGlobal();
             MainMethod mainMethod = null;
-            for(Instruction instruction : parser.execute) {
+            for(Instruction instruction : execute) {
                 try {
                     if(instruction.typeInst == TypeInst.MAIN) {
                         mainMethod = (MainMethod) instruction;
@@ -45,7 +48,7 @@ public class ParserTest {
                     e.printStackTrace();
                 }
             }
-            for(Instruction instruction : parser.execute) {
+            for(Instruction instruction : execute) {
                 try {
                     if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
                         instruction.exec(global, c3dGen);

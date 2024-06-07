@@ -18,7 +18,7 @@ import Classes.Utils.Outs;
 /* 2. Codigo para el parser, variables y metodos */
 parser code 
 {:
-    public ArrayList<Instruction> execute;
+    @SuppressWarnings("deprecation")
     public Parser(Scanner s) {
         super(s);
     }
@@ -42,8 +42,7 @@ terminal String TK_and, TK_or, TK_not;
 terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_comma, TK_colon, TK_semicolon, TK_question;
 
 /* 4. No Terminales*/
-non terminal String INIT;
-non terminal ArrayList<Instruction> INSTSGLOBAL;
+non terminal ArrayList<Instruction> INIT, INSTSGLOBAL;
 non terminal ArrayList<Sentence> INSTRUCTIONS;
 non terminal ArrayList<Expression> LISTARGS;
 non terminal ArrayList<Parameter> LISTPARAMS;
@@ -81,7 +80,7 @@ precedence left TK_inc, TK_dec;
 /* 6. Gramatica Libre de Contexto */
 start with INIT;
 
-INIT ::= INSTSGLOBAL :ins {:execute = ins;:};
+INIT ::= INSTSGLOBAL :ins {:RESULT = ins;:};
 
 INSTSGLOBAL ::=
     INSTSGLOBAL :l INSTGLOBAL :i {:RESULT = l; RESULT.add(i);                 :} |
@@ -171,14 +170,14 @@ ARGSFOR ::=
 
 INITIALIZEFOR ::=
     TYPE :t INITIDSFOR :r {:RESULT = new InitializeFor(new InitID(tleft, tright, r, t));:} |
-    REASIGNS :r           {:RESULT = new InitializeFor(r);:} ;
+    REASIGNS :r           {:RESULT = new InitializeFor(r);                              :} ;
 
 INITIDSFOR ::=
     INITIDSFOR :l TK_comma INITIDFOR :i {:RESULT = l; RESULT.add(i);                 :} |
     INITIDFOR :i                        {:RESULT = new ArrayList<>(Arrays.asList(i));:} ;
 
 INITIDFOR ::=
-    TK_id :id TK_equ EXP :exp {:RESULT = new IDValue(idleft, idright, id, exp); :} ;
+    TK_id :id TK_equ EXP :exp {:RESULT = new IDValue(idleft, idright, id, exp);:} ;
 
 REASIGNS ::=
     REASIGNS :l TK_comma REASIGN :r {:RESULT = l; RESULT.add(r);                 :} |

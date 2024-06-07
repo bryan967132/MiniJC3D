@@ -367,6 +367,7 @@ public class ParserFOut extends java_cup.runtime.lr_parser {
     public ScannerFOut s;
     int nIB = 2;
     WordPainter painter;
+    @SuppressWarnings("deprecation")
     public ParserFOut(ScannerFOut s, WordPainter painter) {
         super(s);
         this.s = s;

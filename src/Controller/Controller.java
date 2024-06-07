@@ -77,6 +77,7 @@ public class Controller {
         }
         catch(Exception e) {}
     }
+    @SuppressWarnings("unchecked")
     public void analyze(IDE ide, int index, JTextPane editor, JTextPane console) {
         IconFile currentFile = pjs.get(index);
         try {
@@ -89,13 +90,13 @@ public class Controller {
                 )
             );
             Parser parser = new Parser(scanner);
-            parser.parse();
+            ArrayList<Instruction> execute = (ArrayList<Instruction>) parser.parse().value;
             Classes.Utils.Outs.resetOuts();
             Env global = new Env(null, "Global");
             C3DGen c3dGen = new C3DGen();
             c3dGen.enableGlobal();
             MainMethod mainMethod = null;
-            for(Instruction instruction : parser.execute) {
+            for(Instruction instruction : execute) {
                 try {
                     if(instruction.typeInst == TypeInst.MAIN) {
                         mainMethod = (MainMethod) instruction;
@@ -106,7 +107,7 @@ public class Controller {
                     }
                 } catch(Exception e) {}
             }
-            for(Instruction instruction : parser.execute) {
+            for(Instruction instruction : execute) {
                 try {
                     if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
                         instruction.exec(global, c3dGen);
