@@ -22,7 +22,6 @@ public class C3DGen {
     private boolean thereIsIntToString = false;
     private boolean thereIsStringToInt = false;
     private boolean thereIsDoubleToString = false;
-    private boolean thereIsStringToDouble = false;
     private boolean thereIsCharToString = false;
     private boolean thereAreDeclarations = false;
     private boolean[] keys = {false, false, false, false}; // main, natives, functions, global
