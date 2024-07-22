@@ -291,9 +291,11 @@ public class ScannerFOut implements java_cup.runtime.Scanner {
 
   /* user code: */
     WordPainter painter;
-    public ScannerFOut(java.io.Reader in, WordPainter painter) {
+    public ScannerFOut(String input, WordPainter painter) {
         yychar = 0;
-        this.zzReader = in;
+        this.zzReader = new java.io.BufferedReader(
+            new java.io.StringReader(input)
+        );
         this.painter = painter;
     }
 
