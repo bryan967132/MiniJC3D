@@ -71,8 +71,8 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 "false"             {return new Symbol(TOK.RW_false,     yyline, yychar, yytext());}
 "print"             {return new Symbol(TOK.RW_print,     yyline, yychar, yytext());}
 // Valores
-{CHAR}              {return new Symbol(TOK.TK_char,      yyline, yychar, yytext().substring(1, yytext().toString().length() - 1));}
-{STRING}            {return new Symbol(TOK.TK_string,    yyline, yychar, yytext().substring(1, yytext().toString().length() - 1));}
+{CHAR}              {return new Symbol(TOK.TK_char,      yyline, yychar, yytext().substring(1, yylength() - 1));}
+{STRING}            {return new Symbol(TOK.TK_string,    yyline, yychar, yytext().substring(1, yylength() - 1));}
 {INTEGER}           {return new Symbol(TOK.TK_int,       yyline, yychar, yytext());}
 {DOUBLE}            {return new Symbol(TOK.TK_double,    yyline, yychar, yytext());}
 // Variables

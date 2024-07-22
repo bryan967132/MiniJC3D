@@ -827,7 +827,7 @@ public class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 80: break;
           case 24: 
-            { return new Symbol(TOK.TK_string,    yyline, yychar, yytext().substring(1, yytext().toString().length() - 1));
+            { return new Symbol(TOK.TK_string,    yyline, yychar, yytext().substring(1, yylength() - 1));
             } 
             // fall through
           case 81: break;
@@ -897,7 +897,7 @@ public class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 94: break;
           case 38: 
-            { return new Symbol(TOK.TK_char,      yyline, yychar, yytext().substring(1, yytext().toString().length() - 1));
+            { return new Symbol(TOK.TK_char,      yyline, yychar, yytext().substring(1, yylength() - 1));
             } 
             // fall through
           case 95: break;
