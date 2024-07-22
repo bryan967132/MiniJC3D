@@ -1,5 +1,6 @@
 package Classes.Utils;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 public class Outs {
     public static ArrayList<Error> errors = new ArrayList<>();
     public static String getStringOuts() {
@@ -10,12 +11,7 @@ public class Outs {
             } else {
                 out += "↳ ERRORES\n";
             }
-            for(int i = 0; i < errors.size(); i ++) {
-                out += errors.get(i);
-                if(i < errors.size() - 1) {
-                    out += "\n";
-                }
-            }
+            out += errors.stream().map(Error::toString).collect(Collectors.joining("\n"));
         }
         return out;
     }
