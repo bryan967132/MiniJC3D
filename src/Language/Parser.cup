@@ -80,7 +80,9 @@ precedence left TK_inc, TK_dec;
 /* 6. Gramatica Libre de Contexto */
 start with INIT;
 
-INIT ::= INSTSGLOBAL :ins {:RESULT = ins;:};
+INIT ::=
+    INSTSGLOBAL :ins {:RESULT = ins;:} |
+    {:RESULT = new ArrayList<>();   :} ;
 
 INSTSGLOBAL ::=
     INSTSGLOBAL :l INSTGLOBAL :i {:RESULT = l; RESULT.add(i);                 :} |

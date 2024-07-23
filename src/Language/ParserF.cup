@@ -56,7 +56,9 @@ precedence left TK_inc, TK_dec;
 /* 6. Gramatica Libre de Contexto */
 start with INIT;
 
-INIT ::= INSTSGLOBAL;
+INIT ::=
+    INSTSGLOBAL |
+    ;
 
 INSTSGLOBAL ::=
     INSTSGLOBAL INSTGLOBAL |
