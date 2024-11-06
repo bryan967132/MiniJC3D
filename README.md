@@ -1,4 +1,4 @@
-# MiniJCompiler
+# MiniJC3D
 ## Generador de Código de 3 Direcciones: JFlex y CUP
 Versión minimizada de c++.  
 Implementa patrón de diseño interpreter.  
