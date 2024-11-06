@@ -294,3 +294,7 @@ Repositorio: [MiniJInterpreter](https://github.com/bryan967132/MiniJInterpreter)
 ## Intérprete de Pseudocódigo con JFlex y CUP
 Usuario: [bryan967132](https://github.com/bryan967132)  
 Repositorio: [PseudoParser](https://github.com/bryan967132/PseudoParser)
+
+## Traductor a Risc-V con JFlex y CUP
+Usuario: [bryan967132](https://github.com/bryan967132)  
+Repositorio: [MiniJRiscV](https://github.com/bryan967132/MiniJRiscV)
