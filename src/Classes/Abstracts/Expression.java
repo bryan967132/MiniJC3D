@@ -4,7 +4,7 @@ import Classes.Generator.C3DGen;
 import Classes.Utils.ReturnValue;
 import Classes.Utils.TypeExp;
 import Classes.Utils.TypeSent;
-public abstract class Expression extends Sentence {
+public abstract class Expression extends Statement {
     public TypeExp typeExp;
     public String trueLbl;
     public String falseLbl;
