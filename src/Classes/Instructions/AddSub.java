@@ -3,7 +3,7 @@ import Classes.Abstracts.Expression;
 import Classes.Abstracts.Instruction;
 import Classes.Env.Env;
 import Classes.Env.Symbol;
-import Classes.Expressions.AccessID;
+import Classes.Expressions.AccessVar;
 import Classes.Expressions.Arithmetic;
 import Classes.Generator.C3DGen;
 import Classes.Utils.ReturnValue;
@@ -23,7 +23,7 @@ public class AddSub extends Instruction {
         Symbol value = env.getValueID(id, line, column);
         if(value != null) {
             ReturnValue newValue = new Arithmetic(line, column,
-                new AccessID(line, column, id),
+                new AccessVar(line, column, id),
                 sign.equals("+=") ? "+" : "-",
                 exp
             ).exec(env, c3dgen);
