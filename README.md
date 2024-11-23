@@ -16,7 +16,8 @@ Simula heap y stack con vectores.
 
 ## Gramática Libre del Contexto
 ```html
-<INIT> ::= <INSTSGLOBAL>
+<INIT> ::=
+    <INSTSGLOBAL>
 
 <INSTSGLOBAL> ::=
     <INSTSGLOBAL> <INSTGLOBAL> |
@@ -24,21 +25,13 @@ Simula heap y stack con vectores.
 
 <INSTGLOBAL> ::=
     <CALLMAINFUNC> |
-    <DECLID>       |
+    <INITVAR>      |
     <DECLFUNC>
 
 <CALLMAINFUNC> ::=
     'main' <CALLFUNC> ';'
 
-<CALLFUNC> ::=
-    TK_id '(' <LISTARGS> ')' |
-    TK_id '(' ')'
-
-<LISTARGS> ::=
-    <LISTARGS> ',' <EXP> |
-    <EXP>
-
-<DECLID> ::=
+<INITVAR> ::=
     <TYPE> <INITIDS> ';'
 
 <INITIDS> ::=
@@ -59,12 +52,12 @@ Simula heap y stack con vectores.
     <LISTPARAMS> ',' <TYPE> TK_id |
     <TYPE> TK_id
 
-<IFSTRUCT> ::=
-    'if' '(' <EXP> ')' <ENV> 'else' <IFSTRUCT> |
-    'if' '(' <EXP> ')' <ENV> 'else' <ENV>      |
+<IF> ::=
+    'if' '(' <EXP> ')' <ENV> 'else' <IF>  |
+    'if' '(' <EXP> ')' <ENV> 'else' <ENV> |
     'if' '(' <EXP> ')' <ENV>
 
-<SWITCHSTRUCT> ::=
+<SWITCH> ::=
     'switch' '(' <EXP> ')' <ENVS>
 
 <ENVS> ::=
@@ -90,7 +83,7 @@ Simula heap y stack con vectores.
     'default' ':' <ENV>          |
     'default' ':'
 
-<LOOPFOR> ::=
+<FOR> ::=
     'for' '(' <ARGSFOR> ')' <ENV>
 
 <ARGSFOR> ::=
@@ -105,7 +98,7 @@ Simula heap y stack con vectores.
 
 <INITIALIZEFOR> ::=
     <TYPE> <INITIDSFOR> |
-    <REASIGNS>
+    <ASSIGNS>
 
 <INITIDSFOR> ::=
     <INITIDSFOR> ',' <INITIDFOR> |
@@ -114,38 +107,31 @@ Simula heap y stack con vectores.
 <INITIDFOR> ::=
     TK_id '=' <EXP>
 
-<REASIGNS> ::=
-    <REASIGNS> ',' <REASIGN> |
-    <REASIGN>
+<ASSIGNS> ::=
+    <ASSIGNS> ',' <ASSIGN> |
+    <ASSIGN>
 
 <UPDATESFOR> ::=
     <UPDATESFOR> ',' <UPDATEFOR> |
     <UPDATEFOR>
 
 <UPDATEFOR> ::=
-    <INCDEC>  |
-    <REASIGN> |
+    <INCDEC> |
+    <ASSIGN> |
     <ADDSUB>
 
-<LOOPWHILE> ::=
+<WHILE> ::=
     'while' '(' <EXP> ')' <ENV>
 
-<LOOPDOWHILE> ::=
+<DOWHILE> ::=
     'do' <ENV> 'while' '(' <EXP> ')' ';'
 
-<REASIGN> ::=
+<ASSIGN> ::=
     TK_id '=' <EXP>
-
-<INCDEC> ::=
-    TK_id '++' |
-    TK_id '--'
 
 <ADDSUB> ::=
     TK_id '+=' <EXP> |
     TK_id '-=' <EXP>
-
-<TERNARY> ::=
-    <EXP> '?' <EXP> ':' <EXP>
 
 <PRINT> ::=
     'print' '(' <EXP> ')' ';' |
@@ -160,13 +146,13 @@ Simula heap y stack con vectores.
     <INSTRUCTION>
 
 <INSTRUCTION> ::=
-    <DECLID>           |
-    <IFSTRUCT>         |
-    <SWITCHSTRUCT>     |
-    <LOOPFOR>          |
-    <LOOPWHILE>        |
-    <LOOPDOWHILE>      |
-    <REASIGN>      ';' |
+    <INITVAR>          |
+    <IF>               |
+    <SWITCH>           |
+    <FOR>              |
+    <WHILE>            |
+    <DOWHILE>          |
+    <ASSIGN>       ';' |
     <ADDSUB>       ';' |
     <INCDEC>       ';' |
     <CALLFUNC>     ';' |
@@ -174,22 +160,23 @@ Simula heap y stack con vectores.
     'return' <EXP> ';' |
     'return'       ';' |
     'continue'     ';' |
-    'break'        ';' 
+    'break'        ';'
 
 <TYPE> ::=
     'String'  |
     'int'     |
     'boolean' |
     'char'    |
-    'double'  
+    'double'
 
 <EXP> ::=
     <ARITHMETICS> |
     <RELATIONALS> |
-    <RELATIONALS> |
+    <LOGICS>      |
     <INCDEC>      |
     <CALLFUNC>    |
     <TERNARY>     |
+    <CAST>        |
     TK_id         |
     TK_string     |
     TK_char       |
@@ -216,10 +203,28 @@ Simula heap y stack con vectores.
     <EXP> '<'  <EXP> |
     <EXP> '>'  <EXP>
 
-<RELATIONALS> ::=
+<LOGICS> ::=
     <EXP> '&&' <EXP> |
     <EXP> '||' <EXP> |
-    '!'   <EXP> 
+    '!'   <EXP>
+
+<INCDEC> ::=
+    TK_id '++' |
+    TK_id '--'
+
+<CALLFUNC> ::=
+    TK_id '(' <LISTARGS> ')' |
+    TK_id '(' ')'
+
+<LISTARGS> ::=
+    <LISTARGS> ',' <EXP> |
+    <EXP>
+
+<TERNARY> ::=
+    <EXP> '?' <EXP> ':' <EXP>
+
+<CAST> ::=
+    <TYPE> '(' <EXP> ')'
 ```
 
 ## Precedencia de Operadores
