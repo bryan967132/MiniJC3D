@@ -10,7 +10,7 @@ public class DoWhile extends Instruction {
     private Expression condition;
     private Block block;
     public DoWhile(int line, int column, Expression condition, Block block) {
-        super(line, column, TypeInst.LOOP_DOWHILE);
+        super(line, column, TypeInst.DOWHILE);
         this.condition = condition;
         this.block = block;
     }
@@ -26,7 +26,7 @@ public class DoWhile extends Instruction {
         c3dgen.addLabel(envWhile.coutinueLbl);
         block.exec(envWhile, c3dgen);
         ReturnValue condition = this.condition.exec(env, c3dgen);
-        if(this.condition.typeExp == TypeExp.CALL_FUNC) {
+        if(this.condition.typeExp == TypeExp.CALLFUNC) {
             c3dgen.addIf(condition.strValue, "==", "1", this.condition.trueLbl);
             c3dgen.addGoto(this.condition.falseLbl);
         }

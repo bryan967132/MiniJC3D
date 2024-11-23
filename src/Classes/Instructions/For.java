@@ -17,7 +17,7 @@ public class For extends Instruction {
     private ArrayList<Statement> updates;
     private Block instructions;
     public For(int line, int column, InitializeFor inits, Expression condition, ArrayList<Statement> updates, Block instructions) {
-        super(line, column, TypeInst.LOOP_FOR);
+        super(line, column, TypeInst.FOR);
         this.inits = inits;
         this.condition = condition;
         this.updates = updates;

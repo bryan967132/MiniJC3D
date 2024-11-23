@@ -10,7 +10,7 @@ public class While extends Instruction {
     private Expression condition;
     private Block block;
     public While(int line, int column, Expression condition, Block block) {
-        super(line, column, TypeInst.LOOP_WHILE);
+        super(line, column, TypeInst.WHILE);
         this.condition = condition;
         this.block = block;
     }
@@ -22,7 +22,7 @@ public class While extends Instruction {
         envWhile.size = env.size;
         c3dgen.addLabel(envWhile.coutinueLbl);
         ReturnValue condition = this.condition.exec(env, c3dgen);
-        if(this.condition.typeExp == TypeExp.CALL_FUNC) {
+        if(this.condition.typeExp == TypeExp.CALLFUNC) {
             condition.trueLbl = c3dgen.validLabel(condition.trueLbl);
             condition.falseLbl = c3dgen.validLabel(condition.falseLbl);
             c3dgen.addIf(condition.strValue, "==", "1", condition.trueLbl);

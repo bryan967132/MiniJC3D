@@ -22,7 +22,7 @@ public class If extends Instruction {
         c3dgen.addComment("----------- If ------------");
         ReturnValue condition = this.condition.exec(env, c3dgen);
         if(condition.type == Type.BOOLEAN) {
-            if(this.condition.typeExp == TypeExp.CALL_FUNC) {
+            if(this.condition.typeExp == TypeExp.CALLFUNC) {
                 condition.trueLbl = c3dgen.validLabel(condition.trueLbl);
                 condition.falseLbl = c3dgen.validLabel(condition.falseLbl);
                 c3dgen.addIf(condition.strValue, "==", "1", condition.trueLbl);

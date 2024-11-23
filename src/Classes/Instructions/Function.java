@@ -13,7 +13,7 @@ public class Function extends Instruction {
     public Block block;
     public Type type;
     public Function(int line, int column, String id, ArrayList<Parameter> params, Block block, Type type) {
-        super(line, column, TypeInst.INIT_FUNCTION);
+        super(line, column, TypeInst.INITFUNC);
         this.id = id;
         this.params = params;
         this.block = block;

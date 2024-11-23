@@ -10,7 +10,7 @@ public class Assign extends Instruction {
     private String id;
     private Expression value;
     public Assign(int line, int column, String id, Expression value) {
-        super(line, column, TypeInst.ASIGN_ID);
+        super(line, column, TypeInst.ASSIGN);
         this.id = id;
         this.value = value;
     }

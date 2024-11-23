@@ -13,7 +13,7 @@ public class InitVar extends Instruction {
     ArrayList<IDValue> inits;
     Type type;
     public InitVar(int line, int column, ArrayList<IDValue> inits, Type type) {
-        super(line, column, TypeInst.INIT_ID);
+        super(line, column, TypeInst.INITVAR);
         this.inits = inits;
         this.type = type;
     }

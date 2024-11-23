@@ -12,7 +12,7 @@ import Classes.Utils.TypeSent;
 public class Block extends Instruction {
     ArrayList<Statement> instructions;
     public Block(int line, int column, ArrayList<Statement> instructions) {
-        super(line, column, TypeInst.BLOCK_INST);
+        super(line, column, TypeInst.BLOCK);
         this.instructions = instructions;
     }
     public ReturnValue exec(Env env, C3DGen c3dgen) {
