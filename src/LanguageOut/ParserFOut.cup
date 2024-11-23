@@ -34,9 +34,9 @@ terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbrk, TK_rbrk, TK_comma, 
 /* 4. No Terminales*/
 non terminal String INIT, INSTSGLOBAL, INSTGLOBAL, CALLFUNC;
 non terminal String EXP, ARITHMETICS, RELATIONALS;
-non terminal String DECLID, TYPE, INITIDS, INITID, DECLFUNC, DEFFUNC, ENV, INSTRUCTIONS, INSTRUCTION;
-non terminal String PRINTF, FORMAT, IFSTRUCT, GOTO;
-non terminal String REASIGN;
+non terminal String INITVAR, TYPE, INITIDS, INITID, DECLFUNC, DEFFUNC, ENV, INSTRUCTIONS, INSTRUCTION;
+non terminal String PRINTF, FORMAT, IF, GOTO;
+non terminal String ASSIGN;
 non terminal String IDCOLORFNC, IDCOLORUSEFNC, VOIDCOLOR, IFCOLOR, PRINTCOLOR, COLORLPAR, COLORRPAR, COLORLBRC, COLORRBRC, COLORLBRK, COLORRBRK;
 
 /* 5. Precedencias */
@@ -57,10 +57,10 @@ INSTSGLOBAL ::=
 
 INSTGLOBAL ::=
     RW_include :i {:painter.RW2(ileft, iright);:} TK_include :t {:painter.STRING(tleft, tright);:} |
-    DECLFUNC     |
-    DEFFUNC      |
-    DECLID       |
-    error        ;
+    DECLFUNC   |
+    DEFFUNC    |
+    INITVAR    |
+    error      ;
 
 CALLFUNC ::=
     IDCOLORUSEFNC COLORLPAR COLORRPAR ;
@@ -68,7 +68,7 @@ CALLFUNC ::=
 IDCOLORUSEFNC ::=
     TK_id :id {:painter.USEFNC(idleft, idright);:} ;
 
-DECLID ::=
+INITVAR ::=
     TYPE INITIDS TK_semicolon ;
 
 INITIDS ::=
@@ -92,16 +92,16 @@ IDCOLORFNC ::=
 VOIDCOLOR ::=
     RW_void :vd {:painter.RW3(vdleft, vdright);:} ;
 
-IFSTRUCT ::=
+IF ::=
     IFCOLOR COLORLPAR EXP COLORRPAR GOTO ;
 
 GOTO ::=
-    RW_goto :g {:painter.RW2(gleft, gright);:} TK_id;
+    RW_goto :g {:painter.RW2(gleft, gright);:} TK_id ;
 
 IFCOLOR ::=
     RW_if :i {:painter.RW2(ileft, iright);:} ;
 
-REASIGN ::=
+ASSIGN ::=
     TK_id :id {:painter.USEVARIABLE2(idleft, idright);:} COLORLBRK EXP COLORRBRK TK_equ EXP |
     TK_id :id {:painter.USEVARIABLE2(idleft, idright);:} TK_equ EXP                         ;
 
@@ -123,12 +123,12 @@ INSTRUCTIONS ::=
     INSTRUCTION              ;
 
 INSTRUCTION ::=
-    DECLID                  |
-    IFSTRUCT   TK_semicolon |
-    REASIGN    TK_semicolon |
-    CALLFUNC   TK_semicolon |
-    PRINTF                  |
-    TK_id      TK_colon     |
+    INITVAR                |
+    IF        TK_semicolon |
+    ASSIGN    TK_semicolon |
+    CALLFUNC  TK_semicolon |
+    PRINTF                 |
+    TK_id     TK_colon     |
     RW_goto   :t {:painter.RW2(tleft, tright);:} TK_id TK_semicolon |
     RW_return :t {:painter.RW2(tleft, tright);:} EXP   TK_semicolon |
     RW_return :t {:painter.RW2(tleft, tright);:}       TK_semicolon |
@@ -140,9 +140,9 @@ TYPE ::=
     RW_float :tp {:painter.RW3(tpleft, tpright);:} ;
 
 EXP ::=
-    ARITHMETICS                   |
-    RELATIONALS                   |
-    COLORLPAR TYPE COLORRPAR EXP  |
+    ARITHMETICS                  |
+    RELATIONALS                  |
+    COLORLPAR TYPE COLORRPAR EXP |
     TK_id     :tr           {:painter.USEVARIABLE2(trleft, trright);:} COLORLBRK EXP COLORRBRK |
     TK_id     :tr           {:painter.USEVARIABLE2(trleft, trright);:} |
     TK_int    :tr           {:painter.NUMBER(trleft, trright);      :} |
