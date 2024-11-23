@@ -6,10 +6,10 @@ import Classes.Env.Symbol;
 import Classes.Generator.C3DGen;
 import Classes.Utils.ReturnValue;
 import Classes.Utils.TypeInst;
-public class AsignID extends Instruction {
+public class Assign extends Instruction {
     private String id;
     private Expression value;
-    public AsignID(int line, int column, String id, Expression value) {
+    public Assign(int line, int column, String id, Expression value) {
         super(line, column, TypeInst.ASIGN_ID);
         this.id = id;
         this.value = value;

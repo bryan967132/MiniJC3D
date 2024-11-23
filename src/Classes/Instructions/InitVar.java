@@ -9,10 +9,10 @@ import Classes.Utils.IDValue;
 import Classes.Utils.ReturnValue;
 import Classes.Utils.Type;
 import Classes.Utils.TypeInst;
-public class InitID extends Instruction {
+public class InitVar extends Instruction {
     ArrayList<IDValue> inits;
     Type type;
-    public InitID(int line, int column, ArrayList<IDValue> inits, Type type) {
+    public InitVar(int line, int column, ArrayList<IDValue> inits, Type type) {
         super(line, column, TypeInst.INIT_ID);
         this.inits = inits;
         this.type = type;
