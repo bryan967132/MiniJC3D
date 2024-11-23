@@ -85,16 +85,16 @@ public class Controller {
                 try {
                     if(instruction.typeInst == TypeInst.MAIN) {
                         mainMethod = (MainMethod) instruction;
-                    } else if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
+                    } else if(instruction.typeInst == TypeInst.INITFUNC) {
                         ((Function) instruction).save(global, c3dGen);
-                    } else if(instruction.typeInst == TypeInst.INIT_ID) {
+                    } else if(instruction.typeInst == TypeInst.INITVAR) {
                         instruction.exec(global, c3dGen);
                     }
                 } catch(Exception e) {}
             }
             for(Instruction instruction : execute) {
                 try {
-                    if(instruction.typeInst == TypeInst.INIT_FUNCTION) {
+                    if(instruction.typeInst == TypeInst.INITFUNC) {
                         instruction.exec(global, c3dGen);
                     }
                 } catch(Exception e) {}
