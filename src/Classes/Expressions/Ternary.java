@@ -21,7 +21,7 @@ public class Ternary extends Expression {
             env.setError("El tipo de dato de la condición no es aceptable", line, column);
             return new ReturnValue(false, Type.NULL);
         }
-        if(this.condition.typeExp == TypeExp.CALL_FUNC) {
+        if(this.condition.typeExp == TypeExp.CALLFUNC) {
             condition.trueLbl = c3dgen.validLabel(condition.trueLbl);
             condition.falseLbl = c3dgen.validLabel(condition.falseLbl);
             c3dgen.addIf(condition.strValue, "==", "1", condition.trueLbl);

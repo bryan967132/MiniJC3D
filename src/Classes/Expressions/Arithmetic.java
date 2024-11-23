@@ -12,7 +12,7 @@ public class Arithmetic extends Expression {
     private Expression exp2;
     private Type type;
     public Arithmetic(int line, int column, Expression exp1, String sign, Expression exp2) {
-        super(line, column, TypeExp.ARITHMETIC_OP);
+        super(line, column, TypeExp.ARITHMETIC);
         this.exp1 = exp1;
         this.sign = sign;
         this.exp2 = exp2;
@@ -67,7 +67,7 @@ public class Arithmetic extends Expression {
                     c3dgen.prevEnv(env.size);
                     valueStr1 = tmp2;
                 } else if(value1.type == Type.BOOLEAN) {
-                    if(exp1.typeExp == TypeExp.CALL_FUNC) {
+                    if(exp1.typeExp == TypeExp.CALLFUNC) {
                         String trueLbl = c3dgen.newLbl();
                         String falseLbl = c3dgen.newLbl();
                         String outLbl = c3dgen.newLbl();
@@ -110,7 +110,7 @@ public class Arithmetic extends Expression {
                     c3dgen.prevEnv(env.size);
                     valueStr2 = tmp2;
                 } else if(value2.type == Type.BOOLEAN) {
-                    if(exp2.typeExp == TypeExp.CALL_FUNC) {
+                    if(exp2.typeExp == TypeExp.CALLFUNC) {
                         String lblTrue = c3dgen.newLbl();
                         String lblFalse = c3dgen.newLbl();
                         String lblOut = c3dgen.newLbl();

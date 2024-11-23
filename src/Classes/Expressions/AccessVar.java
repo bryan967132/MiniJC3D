@@ -9,7 +9,7 @@ import Classes.Utils.TypeExp;
 public class AccessVar extends Expression {
     private String id;
     public AccessVar(int line, int column, String id) {
-        super(line, column, TypeExp.ACCESS_ID);
+        super(line, column, TypeExp.ACCESSVAR);
         this.id = id;
     }
     public ReturnValue exec(Env env, C3DGen c3dgen) {
